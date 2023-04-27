@@ -1,0 +1,29 @@
+version: '3.3'
+services:
+
+  redis:
+    image: docker.io/bitnami/redis:7.0
+    environment:
+      # ALLOW_EMPTY_PASSWORD is recommended only for development.
+      - ALLOW_EMPTY_PASSWORD=yes
+      # - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
+    ports:
+      - '5000:6379'
+    volumes:
+      - 'redis_data:/bitnami/redis/data'
+
+  mysql:
+    image: mysql
+    #restart: always
+    ports:
+      - 5001:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: password123
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  redis_data:
+    driver: local
+  mysql_data:
+    driver: local
